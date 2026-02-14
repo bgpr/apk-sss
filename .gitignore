@@ -11,3 +11,6 @@ processed-pdf/
 # Python cache
 __pycache__/
 .env
+test_echo.log
+test_env_load.log
+test_python_version.log
