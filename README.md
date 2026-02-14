@@ -42,7 +42,7 @@ This project provides a robust, resumable pipeline designed to run within Termux
     Add your keys (replace placeholders):
     ```
     SARVAM_AI_API_KEY="YOUR_SARVAM_AI_API_KEY"
-    GEMINI_API_KEY="AIzaSy_YOUR_GEMINI_API_KEY_HERE"
+    GEMINI_API_KEY="YOUR_GEMINI_API_KEY_HERE"
     ```
     Save the file (`Ctrl+X`, `Y`, `Enter`).
 
