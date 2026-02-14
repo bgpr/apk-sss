@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Kannada Books",
+        "url": "https://adhyatmaprakasha.org/php/kannada_books.php",
+        "language": "kannada",
+        "process_flag": false,
+        "limit": null
+    },
+    {
+        "name": "English Books",
+        "url": "https://adhyatmaprakasha.org/php/english_books.php",
+        "language": "english",
+        "process_flag": true,
+        "limit": 1
+    }
+]

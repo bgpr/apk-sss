@@ -5,7 +5,8 @@
 SCRIPT_PATH="/data/data/com.termux/files/home/apk/main_processor.py"
 
 # Construct the command to run Python script inside proot-distro
-PROOT_CMD="/opt/venv/bin/python ${SCRIPT_PATH} --rescan-books"
+# Pass all arguments received by run_pipeline.sh directly to main_processor.py
+PROOT_CMD="/opt/venv/bin/python ${SCRIPT_PATH} $@"
 
 # Execute proot-distro login with the Python command
 proot-distro login debian --shared-tmp -- env TERM=xterm-256color HOME=/root bash -c "${PROOT_CMD}"

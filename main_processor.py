@@ -26,12 +26,11 @@ from scraper import load_state, save_state, scrape_books, get_page_slug
 from ocr_pdf import ocr_to_markdown, process_markdown_to_docx # Directly import the functions
 
 # --- Configuration ---
-# Your Sarvam AI Key - retrieved from initial state_snapshot
+# API Keys are loaded from .env
 SARVAM_AI_API_KEY = os.environ.get("SARVAM_AI_API_KEY")
 if not SARVAM_AI_API_KEY:
     logger.error("SARVAM_AI_API_KEY environment variable not set. Exiting.")
     sys.exit(1)
-BASE_URL = "https://adhyatmaprakasha.org/php/kannada_books.php" # Define BASE_URL here for main_processor
 
 RAW_PDF_BASE_DIR = "raw_pdf" # Base directory for raw PDFs
 PROCESSED_DOCS_BASE_DIR = "processed_docs" # Base directory for processed docs
@@ -61,7 +60,7 @@ def calculate_sha256(filepath):
         logger.error(f"Failed to calculate SHA256 for '{filepath}': {e}")
         return None
 
-def download_pdf(book_info):
+def download_pdf(book_info, title_display):
     """
     Downloads a PDF file from the given URL and saves it locally.
     Performs integrity check if hash exists.
@@ -70,7 +69,6 @@ def download_pdf(book_info):
     pdf_url = book_info['pdf_url']
     local_path = book_info['local_pdf_path']
     book_id = book_info['id']
-    title_kannada = book_info['title_kannada']
     expected_hash = book_info.get('pdf_sha256_hash') # Get existing hash from state
 
     # Check if file exists and verify hash if available
@@ -78,7 +76,7 @@ def download_pdf(book_info):
         current_hash = calculate_sha256(local_path)
         if current_hash:
             if expected_hash and current_hash == expected_hash:
-                logger.info(f"PDF for Book {book_id} ('{title_kannada}') already exists and is verified at '{local_path}'. Skipping download.")
+                logger.info(f"PDF for Book {book_id} ('{title_display}') already exists and is verified at '{local_path}'. Skipping download.")
                 return True
             elif expected_hash and current_hash != expected_hash:
                 logger.warning(f"PDF for Book {book_id} at '{local_path}' is corrupted (hash mismatch). Removing and re-downloading...")
@@ -94,7 +92,7 @@ def download_pdf(book_info):
             if os.path.exists(local_path):
                 os.remove(local_path) # Remove potentially problematic file
 
-    logger.info(f"Downloading PDF for Book {book_id} ('{title_kannada}') from '{pdf_url}' to '{local_path}'...")
+    logger.info(f"Downloading PDF for Book {book_id} ('{title_display}') from '{pdf_url}' to '{local_path}'...")
     try:
         response = requests.get(pdf_url, stream=True)
         response.raise_for_status()
@@ -143,16 +141,16 @@ def copy_to_phone_storage(source_path, destination_base_dir, book_id, page_slug)
 
 # --- Main Processing Logic ---
 
-def process_books_workflow(sarvam_ai_api_key, limit_books=None, rescan_books=False):
+def process_books_workflow(base_url, sarvam_ai_api_key, page_language, limit_books=None, rescan_books=False):
     """
-    Orchestrates the entire book processing workflow.
+    Orchestrates the entire book processing workflow for a given base URL and language.
     """
-    logger.info("--- Starting Book Processing Workflow ---")
+    logger.info(f"--- Starting Book Processing Workflow for {base_url} (Language: {page_language}) ---")
     
     script_dir = os.path.dirname(os.path.abspath(__file__))
     
     # Determine the page slug once
-    page_slug = get_page_slug(BASE_URL)
+    page_slug = get_page_slug(base_url)
     state_file_path = os.path.join(script_dir, f"processing_state_{page_slug}.json")
     
     current_state = {"books": []}
@@ -167,22 +165,21 @@ def process_books_workflow(sarvam_ai_api_key, limit_books=None, rescan_books=Fal
         existing_books_map = {book['id']: book for book in current_state['books']}
         
         # Directly call scrape_books function
-        scraped_books_data = scrape_books(BASE_URL, existing_books_map)
+        scraped_books_data = scrape_books(base_url, existing_books_map, page_language) # Pass page_language
         
         logger.info("Scraper finished. Loading and updating state.")
         
         # Merge scraped data into current_state, handling existing entries
-        existing_books_map = {book['id']: book for book in current_state['books']}
+        existing_books_map = {book['id']: book for book in current_state['books']} 
         for new_book in scraped_books_data:
             if new_book['id'] in existing_books_map:
                 # Update existing book's details but preserve its original status unless explicitly changed
                 existing_book = existing_books_map[new_book['id']]
                 
-                # Only update mutable fields like paths, and KANNADA titles/authors.
-                # Preserve existing slugs to avoid re-transliteration unless they are missing.
+                # Update original title/author fields (language neutral)
                 existing_book.update({
-                    "title_kannada": new_book['title_kannada'],
-                    "author_kannada": new_book['author_kannada'],
+                    "title_original": new_book['title_original'],
+                    "author_original": new_book['author_original'],
                     "pdf_url": new_book['pdf_url'],
                     "local_pdf_path": new_book['local_pdf_path'],
                     "local_md_path": new_book['local_md_path'],
@@ -206,28 +203,29 @@ def process_books_workflow(sarvam_ai_api_key, limit_books=None, rescan_books=Fal
 
     books_to_process = []
     for book in current_state['books']:
-        # Only process if status is not 'completed'
-        if book.get('status') != "completed":
+        # Only process if status is not 'completed' or if we want to force rescan (e.g., failed OCR)
+        # Ensure that if rescan_books is true, even completed books are considered for potential OCR/DOCX if they failed those steps
+        if book.get('status') != "completed" or (rescan_books and (book.get('ocr_status') != "completed" or book.get('docx_conversion_status') != "completed")):
             books_to_process.append(book)
     
     if limit_books:
         books_to_process = books_to_process[:limit_books]
 
-    logger.info(f"Found {len(books_to_process)} books to process (status: not completed).")
+    logger.info(f"Found {len(books_to_process)} books to process (status: not completed, or rescan requested for incomplete steps).")
 
     for i, book in enumerate(books_to_process):
         book_id = book['id']
-        title_kannada = book['title_kannada']
+        # Use title_original field for display, as title_kannada is no longer appropriate for English books
+        title_display = book.get('title_original', 'Unknown Title') 
         
         # Convert relative paths (stored in state) to absolute paths for file operations
         # These paths were constructed with RAW_PDF_BASE_DIR/page_slug/book_id/...
         # so now prepend script_dir
-        # CRITICAL: book['local_pdf_path'] contains 'raw_pdf', book['local_md_path'] contains 'processed_docs'
         book['local_pdf_path'] = os.path.join(script_dir, book['local_pdf_path'])
         book['local_md_path'] = os.path.join(script_dir, book['local_md_path'])
         book['local_docx_path'] = os.path.join(script_dir, book['local_docx_path'])
 
-        logger.info(f"\n--- Processing Book {i+1}/{len(books_to_process)}: ID={book_id} - '{title_kannada}' ---")
+        logger.info(f"\n--- Processing Book {i+1}/{len(books_to_process)}: ID={book_id} - '{title_display}' ---")
         
         # --- Stage: Download PDF ---
         if book.get('download_status') != "completed":
@@ -241,7 +239,8 @@ def process_books_workflow(sarvam_ai_api_key, limit_books=None, rescan_books=Fal
                 logger.info(f"STEP 2: Downloading PDF (Attempt {attempt+1}/{max_download_retries}) for Book {book_id}...")
                 
                 # download_pdf modifies book directly for hash, so pass reference
-                if download_pdf(book): 
+                # Pass original title for logging, which is now title_display
+                if download_pdf(book, title_display): 
                     book['download_status'] = "completed"
                     download_success = True
                     logger.info(f"PDF for Book {book_id} downloaded successfully.")
@@ -401,11 +400,38 @@ def process_books_workflow(sarvam_ai_api_key, limit_books=None, rescan_books=Fal
 
 
 if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser(description="Automate OCR and document conversion for Kannada scanned PDFs.")
-    parser.add_argument("--limit", type=int, help="Limit the number of books to process for testing.")
-    parser.add_argument("--rescan-books", action="store_true", help="Force rescanning of book metadata from the website.")
-    args = parser.parse_args()
+    # Load configuration from config.json
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_file_path = os.path.join(script_dir, "config.json")
+    
+    if not os.path.exists(config_file_path):
+        logger.error(f"config.json not found at {config_file_path}. Exiting.")
+        sys.exit(1)
 
-    # Pass the SARVAM_AI_API_KEY from config
-    process_books_workflow(SARVAM_AI_API_KEY, limit_books=args.limit, rescan_books=args.rescan_books)
+    try:
+        with open(config_file_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+    except json.JSONDecodeError as e:
+        logger.error(f"Error decoding config.json: {e}. Exiting.")
+        sys.exit(1)
+
+    # Process each page configured
+    for page_config in config:
+        if page_config.get("process_flag", False): # Only process if process_flag is true
+            page_url = page_config['url']
+            page_language = page_config.get('language', 'kannada') # Default to kannada
+            limit_books = page_config.get('limit') # Can be None
+            
+            # For simplicity, rescan_books is always true when processing a page from config to ensure fresh metadata
+            # This can be made configurable in config.json later if needed
+            rescan_books = True 
+
+            process_books_workflow(
+                base_url=page_url,
+                sarvam_ai_api_key=SARVAM_AI_API_KEY,
+                page_language=page_language,
+                limit_books=limit_books,
+                rescan_books=rescan_books
+            )
+        else:
+            logger.info(f"Skipping processing for page '{page_config.get('name', page_config['url'])}' (process_flag is false).")
