@@ -3,6 +3,8 @@ import re
 import sys # Added sys import
 from google import genai
 import time
+from dotenv import load_dotenv # Import load_dotenv
+load_dotenv() # Load environment variables from .env file
 
 # --- Configuration ---
 # Load API key from environment variable or direct assignment

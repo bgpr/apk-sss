@@ -10,3 +10,4 @@ processed-pdf/
 
 # Python cache
 __pycache__/
+.env

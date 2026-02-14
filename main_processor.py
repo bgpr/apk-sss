@@ -7,6 +7,8 @@ import hashlib
 import re 
 import sys
 import logging
+from dotenv import load_dotenv # Import load_dotenv
+load_dotenv() # Load environment variables from .env file
 
 # Configure logging for main_processor.py
 logging.basicConfig(
