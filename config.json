@@ -11,6 +11,6 @@
         "url": "https://adhyatmaprakasha.org/php/english_books.php",
         "language": "english",
         "process_flag": true,
-        "limit": 1
+        "limit": null
     }
 ]
