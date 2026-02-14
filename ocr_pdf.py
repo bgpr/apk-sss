@@ -6,262 +6,195 @@ import sys
 import zipfile
 import io
 import subprocess # Added for pandoc
-from pdf_converter import convert_html_to_pdf, PDFConversionError # Imported PDF conversion module
+import logging # Import logging module
+import traceback # Import traceback for detailed exception info
 
-def ocr_kannada_pdf_direct_api(pdf_path, sarvam_ai_api_key, docraptor_api_key="YOUR_DOCRAPTOR_API_KEY_HERE", lang_code="kn-IN", output_format="md"):
-    if not os.path.exists(pdf_path):
-        print(f"Error: PDF file not found at {pdf_path}")
-        return
+# Configure logging for ocr_pdf.py
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("ocr_pdf_debug.log"),
+        logging.StreamHandler(sys.stderr)
+    ]
+)
+logger = logging.getLogger(__name__)
 
-    base_api_url = "https://api.sarvam.ai/doc-digitization/job/v1"
-    
-    # Explicit Endpoints from the provided documentation
-    job_creation_endpoint = base_api_url
-    get_upload_urls_endpoint = f"{base_api_url}/upload-files"
-    start_job_endpoint_template = f"{base_api_url}/{{job_id}}/start"
-    status_endpoint_template = f"{base_api_url}/{{job_id}}/status"
-
-    sarvam_common_headers = {
-        "api-subscription-key": sarvam_ai_api_key, # This API key is for Sarvam AI
-        "Accept": "application/json"
-    }
-
-    # --- Step 1: Create Job (Sarvam AI) ---
-    print("--- Step 1: Creating OCR job (Sarvam AI) ---")
-    create_job_payload = {
-        "job_parameters": {
-            "language": lang_code,
-            "output_format": output_format
-        }
-        # "callback" can be added here if needed
-    }
+# Import SarvamAI SDK
+try:
+    from sarvamai import SarvamAI
+    from sarvamai.core.api_error import ApiError
+except ImportError:
+    logger.error("SarvamAI SDK not found. Attempting to install...")
     try:
-        response = requests.post(job_creation_endpoint, headers={**sarvam_common_headers, "Content-Type": "application/json"}, json=create_job_payload)
-        response.raise_for_status()
-        job_response = response.json()
-        job_id = job_response.get("job_id")
-        job_state = job_response.get("job_state")
-        if not job_id:
-            print(f"Error: job_id not found in job creation response: {job_response}")
-            return
-        print(f"Job created successfully. Job ID: {job_id}, Initial State: {job_state}")
-    except requests.exceptions.RequestException as e:
-        print(f"Failed to create job: {e}")
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"Response status: {e.response.status_code}")
-            print(f"Response content: {e.response.text}")
-        return
-
-    # --- Step 2: Get Upload URLs (Sarvam AI) ---
-    print("--- Step 2: Requesting pre-signed upload URL(s) (Sarvam AI) ---")
-    file_name = os.path.basename(pdf_path)
-    get_upload_payload = {
-        "job_id": job_id,
-        "files": [file_name]
-    }
-    try:
-        response = requests.post(get_upload_urls_endpoint, headers={**sarvam_common_headers, "Content-Type": "application/json"}, json=get_upload_payload)
-        response.raise_for_status()
-        upload_urls_response = response.json()
-        
-        upload_urls_map = upload_urls_response.get("upload_urls")
-        if not upload_urls_map or file_name not in upload_urls_map:
-            print(f"Error: 'upload_urls' or '{file_name}' not found in response: {upload_urls_response}")
-            return
-        
-        presigned_url_info = upload_urls_map.get(file_name)
-        if not presigned_url_info or not presigned_url_info.get("file_url"):
-            print(f"Error: 'file_url' for '{file_name}' not found in response: {upload_urls_response}")
-            return
-        
-        presigned_url = presigned_url_info["file_url"]
-        print(f"Received pre-signed URL for '{file_name}'.")
-
-    except requests.exceptions.RequestException as e:
-        print(f"Failed to get upload URLs: {e}")
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"Response status: {e.response.status_code}")
-            print(f"Response content: {e.response.text}")
-        return
-
-    # --- Step 3: Upload File to Pre-signed URL (Sarvam AI) ---
-    print("--- Step 3: Uploading document to pre-signed URL (Sarvam AI) ---")
-    with open(pdf_path, 'rb') as f:
-        try:
-            # Use PUT to the pre-signed URL, Content-Type: application/pdf
-            # Add the mandatory 'x-ms-blob-type' header for Azure Blob Storage
-            upload_headers = {
-                "Content-Type": "application/pdf",
-                "x-ms-blob-type": "BlockBlob" 
-            }
-            response = requests.put(presigned_url, headers=upload_headers, data=f)
-            response.raise_for_status()
-            print(f"Document '{file_name}' uploaded successfully to pre-signed URL.")
-        except requests.exceptions.RequestException as e:
-            print(f"Failed to upload document to pre-signed URL: {e}")
-            if hasattr(e, 'response') and e.response is not None:
-                print(f"Response status: {e.response.status_code}")
-                print(f"Response content: {e.response.text}")
-            return
-            
-    # --- Step 4: Start Job Processing (Sarvam AI) ---
-    print("--- Step 4: Starting OCR job processing (Sarvam AI) ---")
-    start_job_url = start_job_endpoint_template.format(job_id=job_id)
-    try:
-        response = requests.post(start_job_url, headers=sarvam_common_headers) # Headers include API key
-        response.raise_for_status()
-        print("OCR job started successfully.")
-    except requests.exceptions.RequestException as e:
-        print(f"Failed to start job: {e}")
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"Response status: {e.response.status_code}")
-            print(f"Response content: {e.response.text}")
-        return
-
-    # --- Step 5: Poll for Job Status (Sarvam AI) ---
-    print("--- Step 5: Polling for OCR job completion (Sarvam AI) ---")
-    status = "Running" # Initial assumption
-    while status in ["Accepted", "Pending", "Running", "PartiallyCompleted"]:
-        time.sleep(5) # Poll every 5 seconds
-        status_url = status_endpoint_template.format(job_id=job_id)
-        try:
-            response = requests.get(status_url, headers=sarvam_common_headers)
-            response.raise_for_status()
-            status_data = response.json()
-            status = status_data.get("job_state", "Unknown")
-            print(f"Current job state for {job_id}: {status}")
-        except requests.exceptions.RequestException as e:
-            print(f"Failed to get job status: {e}")
-            if hasattr(e, 'response') and e.response is not None:
-                print(f"Response status: {e.response.status_code}")
-                print(f"Response content: {e.response.text}")
-            return
-        except json.JSONDecodeError:
-            print(f"Error: Could not decode JSON from status response. Content: {response.text}")
-            return
-
-    if status == "Completed":
-        print("OCR job completed successfully.")
-    elif status == "PartiallyCompleted":
-        print("OCR job partially completed. Check job status for details.")
-    elif status == "Failed":
-        print(f"OCR job failed. Details: {status_data.get('error', 'No error details.')}")
-        return
-    else:
-        print(f"OCR job finished with unexpected status: {status}")
-        return
-
-    # --- Step 6: Retrieve and Extract Results (Sarvam AI) ---
-    print("--- Step 6: Retrieving and extracting OCR results (Sarvam AI) ---")
-    
-    # Step 6a: Get Download URLs
-    print("--- Step 6a: Requesting pre-signed download URL(s) (Sarvam AI) ---")
-    get_download_urls_endpoint = f"{base_api_url}/{job_id}/download-files"
-    try:
-        response = requests.post(get_download_urls_endpoint, headers=sarvam_common_headers)
-        response.raise_for_status()
-        download_urls_response = response.json()
-
-        download_urls_map = download_urls_response.get("download_urls")
-        if not download_urls_map:
-            print(f"Error: 'download_urls' not found in response: {download_urls_response}")
-            return
-        
-        # Assuming there's only one file (the output ZIP) as per previous context
-        zip_file_name = next(iter(download_urls_map), None) # Get the first key from the map
-        if not zip_file_name:
-            print(f"Error: No ZIP file name found in download_urls_map: {download_urls_map}")
-            return
-
-        presigned_download_url_info = download_urls_map.get(zip_file_name)
-        if not presigned_download_url_info or not presigned_download_url_info.get("file_url"):
-            print(f"Error: 'file_url' for '{zip_file_name}' not found in response: {download_urls_response}")
-            return
-        
-        presigned_download_url = presigned_download_url_info["file_url"]
-        print(f"Received pre-signed download URL for '{zip_file_name}'.")
-
-    except requests.exceptions.RequestException as e:
-        print(f"Failed to get download URLs: {e}")
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"Response status: {e.response.status_code}")
-            print(f"Response content: {e.response.text}")
-        return
-
-    # Step 6b: Download ZIP file from pre-signed URL and extract markdown
-    print(f"--- Step 6b: Downloading ZIP from pre-signed URL and extracting '{output_format}' (Sarvam AI) ---")
-    try:
-        # No api-subscription-key needed for the pre-signed URL itself
-        response = requests.get(presigned_download_url, stream=True)
-        response.raise_for_status()
-        
-        # Save ZIP content to an in-memory byte stream
-        zip_content = io.BytesIO(response.content)
-
-        with zipfile.ZipFile(zip_content) as z:
-            md_files = [f.filename for f in z.infolist() if f.filename.endswith(f'.{output_format}')]
-            if not md_files:
-                print(f"Error: No {output_format} file found in the ZIP response.")
-                return
-
-            md_content = z.read(md_files[0]).decode('utf-8')
-            md_output_filename = os.path.join(os.path.dirname(pdf_path), os.path.splitext(os.path.basename(pdf_path))[0] + f".{output_format}") # Save original output format
-
-            with open(md_output_filename, 'w', encoding='utf-8') as f:
-                f.write(md_content)
-            print(f"Successfully extracted and saved {output_format} to {md_output_filename}")
-    except requests.exceptions.RequestException as e:
-        print(f"Failed to retrieve or process results: {e}")
-        if hasattr(e, 'response') and e.response is not None:
-            print(f"Response status: {e.response.status_code}")
-            print(f"Response content: {e.response.text}")
-        return
-    except zipfile.BadZipFile:
-        print("Error: Received content is not a valid ZIP file.")
-        print(f"Response headers: {response.headers}")
-        return
-    except Exception as e:
-        print(f"An unexpected error occurred during result processing: {e}")
-        return
-
-    # --- Step 7: Convert Markdown to HTML (Pandoc) ---
-    print("--- Step 7: Converting Markdown to HTML (Pandoc) ---")
-    html_output_filename = os.path.join(os.path.dirname(pdf_path), os.path.splitext(os.path.basename(pdf_path))[0] + ".html")
-    try:
-        subprocess.run(["pandoc", md_output_filename, "-o", html_output_filename], check=True, text=True, capture_output=True)
-        print(f"Successfully converted '{md_output_filename}' to '{html_output_filename}'")
+        subprocess.run([sys.executable, "-m", "pip", "install", "sarvamai"], check=True)
+        from sarvamai import SarvamAI
+        from sarvamai.core.api_error import ApiError
+        logger.info("SarvamAI SDK installed successfully in current environment.")
     except subprocess.CalledProcessError as e:
-        print(f"Error converting Markdown to HTML with Pandoc: {e}")
-        print(f"Stdout: {e.stdout}")
-        print(f"Stderr: {e.stderr}")
-        return
-    except FileNotFoundError:
-        print("Error: Pandoc is not installed or not in PATH. Please install pandoc to convert Markdown to HTML.")
-        return
-
-    # --- Step 8: Convert HTML to PDF (DocRaptor) ---
-    print("--- Step 8: Converting HTML to PDF (DocRaptor) ---")
-    pdf_output_filename = os.path.join(os.path.dirname(pdf_path), os.path.splitext(os.path.basename(pdf_path))[0] + ".pdf")
-    try:
-        with open(html_output_filename, 'r', encoding='utf-8') as f:
-            html_content = f.read()
-
-        converted_pdf_path = convert_html_to_pdf(html_content, pdf_output_filename, docraptor_api_key, test_mode=(docraptor_api_key == "YOUR_DOCRAPTOR_API_KEY_HERE"))
-        print(f"Successfully converted HTML to PDF and saved to '{converted_pdf_path}'")
-
-    except PDFConversionError as e:
-        print(f"PDF conversion failed: {e}")
+        logger.error(f"Failed to install SarvamAI SDK: {e}")
+        sys.exit(1)
     except Exception as e:
-        print(f"An unexpected error occurred during PDF conversion: {e}")
+        logger.error(f"An unexpected error occurred during SDK installation: {e}")
+        sys.exit(1)
+
+# Flag to temporarily disable Sarvam AI OCR for debugging/testing purposes
+# Set to True to skip Sarvam AI API calls.
+DISABLE_SARVAM_AI_OCR = False # <--- SET THIS TO FALSE
+
+# Function to handle Markdown to DOCX conversion
+def process_markdown_to_docx(md_input_path, docx_output_path):
+    """
+    Converts a Markdown file to a DOCX file using Pandoc.
+    Returns True on success, False otherwise.
+    """
+    if not os.path.exists(md_input_path):
+        logger.error(f"Markdown file not found at {md_input_path}")
+        return False
+
+    # Ensure the output directory exists
+    os.makedirs(os.path.dirname(docx_output_path), exist_ok=True)
+
+    logger.info(f"Converting Markdown '{md_input_path}' to DOCX '{docx_output_path}' (Pandoc)...")
+    try:
+        # Check if pandoc exists
+        subprocess.run(["pandoc", "--version"], check=True, text=True, capture_output=True)
+        subprocess.run(["pandoc", md_input_path, "-o", docx_output_path], check=True, text=True, capture_output=True)
+        logger.info(f"Successfully converted '{md_input_path}' to '{docx_output_path}'")
+        return True
+
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Error converting Markdown to DOCX with Pandoc: {e}")
+        logger.error(f"Stdout: {e.stdout}")
+        logger.error(f"Stderr: {e.stderr}")
+        return False
+    except FileNotFoundError:
+        logger.error("Pandoc is not installed or not in PATH. Please install pandoc.")
+        return False
+
+def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-IN", output_format="md"):
+    """
+    Performs OCR on a PDF using Sarvam AI SDK and extracts markdown.
+    Writes the extracted Markdown to output_md_path.
+    Returns the path to the extracted MD file on success, None otherwise.
+    """
+    logger.debug(f"Received output_md_path: {output_md_path}") # DEBUG PRINT
+
+    if not os.path.exists(pdf_path):
+        logger.error(f"PDF file not found at {pdf_path}")
+        return None
+
+    # Ensure the output directory exists for the MD file
+    os.makedirs(os.path.dirname(output_md_path), exist_ok=True)
+
+    if DISABLE_SARVAM_AI_OCR:
+        logger.debug(f"Sarvam AI OCR skipped for '{os.path.basename(pdf_path)}' (DISABLED). Creating placeholder MD.")
+        placeholder_content = f"# OCR Skipped for {os.path.basename(pdf_path)}\n\nThis is a placeholder Markdown file as Sarvam AI OCR was disabled for testing purposes."
+        with open(output_md_path, 'w', encoding='utf-8') as f_out:
+            f_out.write(placeholder_content)
+        logger.info(f"Placeholder MD created at {output_md_path}")
+        return os.path.abspath(output_md_path)
+
+
+    # Initialize SarvamAI client
+    try:
+        client = SarvamAI(api_subscription_key=sarvam_ai_api_key)
+        # logger.debug("SarvamAI SDK client initialized in ocr_to_markdown.")
+    except Exception as e:
+        logger.error(f"Failed to initialize SarvamAI SDK client: {e}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return None
+
+    try:
+        # Create a Document Intelligence job
+        logger.info(f"Creating Document Intelligence job for '{os.path.basename(pdf_path)}' (Sarvam AI SDK)...")
+        job = client.document_intelligence.create_job(
+            language=lang_code,
+            output_format=output_format
+        )
+        logger.info(f"Job created successfully. Job ID: {job.job_id}")
+
+        # Upload your document
+        logger.info(f"Uploading document '{os.path.basename(pdf_path)}' (Sarvam AI SDK)...")
+        job.upload_file(pdf_path)
+        logger.info("Document uploaded.")
+
+        # Start processing
+        logger.info("Starting document processing (Sarvam AI SDK)...")
+        job.start()
+        logger.info("Processing started.")
+
+        # Wait for completion
+        logger.info("Waiting for job completion (Sarvam AI SDK)...")
+        status = job.wait_until_complete()
+        logger.info(f"Job completed with state: {status.job_state}")
+        
+        if status.job_state == "Completed":
+            # Create a temporary path for the downloaded ZIP
+            # Place temp zip in the same directory as the MD output
+            temp_zip_path = os.path.join(os.path.dirname(output_md_path), f"sarvam_output_{job.job_id}.zip")
+
+            # Download the output (ZIP file containing the processed document)
+            logger.info(f"Downloading output to '{temp_zip_path}' (Sarvam AI SDK)...")
+            job.download_output(temp_zip_path)
+            logger.info(f"Output saved to '{temp_zip_path}'")
+
+            # Extract markdown from the ZIP file
+            with zipfile.ZipFile(temp_zip_path, 'r') as z:
+                # Find the markdown file within the zip (assuming one .md file)
+                md_files = [f.filename for f in z.infolist() if f.filename.endswith(f'.{output_format}')]
+                if not md_files:
+                    logger.error(f"No {output_format} file found in the downloaded ZIP.")
+                    os.remove(temp_zip_path)
+                    return None
+                
+                # Extract and save the content to the specified output_md_path
+                with open(output_md_path, 'w', encoding='utf-8') as f_out:
+                    f_out.write(z.read(md_files[0]).decode('utf-8'))
+            logger.info(f"Successfully extracted {output_format} to {output_md_path}")
+            os.remove(temp_zip_path) # Clean up temporary zip
+            return os.path.abspath(output_md_path) # Return the absolute path
+        else:
+            logger.error(f"Sarvam AI job did not complete successfully. Final state: {status.job_state}")
+            if hasattr(status, 'error'):
+                logger.error(f"ERROR Details: {status.error}")
+            return None
+            
+    except ApiError as e:
+        logger.error(f"API ERROR during Sarvam AI OCR: Status {e.status_code}, Body: {e.body}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return None
+    except Exception as e:
+        logger.error(f"AN UNEXPECTED ERROR OCCURRED during Sarvam AI OCR: {e}")
+        logger.error(f"Traceback: {traceback.format_exc()}")
+        return None
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python ocr_pdf.py <path_to_pdf_file> <your_sarvam_ai_api_key> [your_docraptor_api_key]")
+    import argparse
+    parser = argparse.ArgumentParser(description="Perform OCR on PDF and convert to DOCX.")
+    parser.add_argument("--pdf", help="Path to the PDF file for OCR.")
+    parser.add_argument("--md-output", help="Path to the output Markdown file for OCR.")
+    parser.add_argument("--md-input", help="Path to the Markdown file for DOCX conversion.")
+    parser.add_argument("--docx-output", help="Path to the output DOCX file (required for --md-input).")
+    parser.add_argument("--sarvam-key", help="Sarvam AI API Key.")
+    args = parser.parse_args()
+
+    if args.md_input and args.docx_output:
+        # Check if pandoc is installed only when DOCX conversion is requested
+        try:
+            subprocess.run(["pandoc", "--version"], check=True, text=True, capture_output=True)
+        except FileNotFoundError:
+            logger.error("Pandoc is not installed or not in PATH. DOCX conversion will fail.")
+            sys.exit(1)
+        process_markdown_to_docx(args.md_input, args.docx_output)
+    elif args.pdf and args.sarvam_key and args.md_output:
+        md_file_path = ocr_to_markdown(args.pdf, args.sarvam_key, args.md_output)
+        if md_file_path:
+            # When run standalone, if OCR is successful, print the md_file_path
+            # main_processor.py expects this path for subsequent steps
+            logger.info(md_file_path) # Changed to logger.info
+    else:
+        logger.info("Usage for OCR: python ocr_pdf.py --pdf <path_to_pdf_file> --sarvam-key <your_sarvam_ai_api_key> --md-output <path_for_md_output>")
+        logger.info("Usage for DOCX: python ocr_pdf.py --md-input <path_to_md_file> --docx-output <path_for_docx_output>")
         sys.exit(1)
-
-    pdf_file = sys.argv[1]
-    sarvam_ai_api_key = sys.argv[2]
-    docraptor_api_key = sys.argv[3] if len(sys.argv) > 3 else "YOUR_DOCRAPTOR_API_KEY_HERE"
-
-    ocr_kannada_pdf_direct_api(pdf_file, sarvam_ai_api_key, docraptor_api_key=docraptor_api_key)

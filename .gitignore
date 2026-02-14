@@ -1,0 +1,12 @@
+# Ignore PDF files
+*.pdf
+
+# Ignore generated markdown and html files
+*.md
+*.html
+
+# Ignore the processed-pdf directory
+processed-pdf/
+
+# Python cache
+__pycache__/
