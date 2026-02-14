@@ -14,3 +14,4 @@ __pycache__/
 test_echo.log
 test_env_load.log
 test_python_version.log
+!README.md
