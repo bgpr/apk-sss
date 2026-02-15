@@ -7,9 +7,9 @@
             "title_english_slug": "naradas-aphorisms-on-bhakti",
             "author_english_slug": "sharma-y-subramanya",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/001/index.pdf",
-            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/001/001_naradas-aphorisms-on-bhakti_sharma-y-subramanya.pdf",
-            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/001/001_naradas-aphorisms-on-bhakti_sharma-y-subramanya.md",
-            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/001/001_naradas-aphorisms-on-bhakti_sharma-y-subramanya.docx",
+            "local_pdf_path": "raw_pdf/english_books/001/001_naradas-aphorisms-on-bhakti_sharma-y-subramanya.pdf",
+            "local_md_path": "processed_docs/english_books/001/001_naradas-aphorisms-on-bhakti_sharma-y-subramanya.md",
+            "local_docx_path": "processed_docs/english_books/001/001_naradas-aphorisms-on-bhakti_sharma-y-subramanya.docx",
             "status": "completed",
             "download_status": "completed",
             "pdf_sha256_hash": "41a9db17f2e74fb95a848d80585d494bc04fd387833ed1130f65c1f37b4f54db",
@@ -27,7 +27,12 @@
             "local_pdf_path": "raw_pdf/english_books/002/002_minor-works-of-sri-sankaracharya_sharma-y-subramanya.pdf",
             "local_md_path": "processed_docs/english_books/002/002_minor-works-of-sri-sankaracharya_sharma-y-subramanya.md",
             "local_docx_path": "processed_docs/english_books/002/002_minor-works-of-sri-sankaracharya_sharma-y-subramanya.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "1a3583c08639663535411cbf7166104ca7e1ced7844d70268a45924fcb2bc2b8",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "003",
@@ -36,10 +41,15 @@
             "title_english_slug": "śaṅkaras-clarification-of-certain-vedȧntic-concepts",
             "author_english_slug": "swāmiji-sri-sri-satchidānandendra-saraswati",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/003/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/003/003_śaṅkaras-clarification-of-certain-vedȧntic-concepts_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
-            "local_md_path": "processed_docs/english_books/003/003_śaṅkaras-clarification-of-certain-vedȧntic-concepts_swāmiji-sri-sri-satchidānandendra-saraswati.md",
-            "local_docx_path": "processed_docs/english_books/003/003_śaṅkaras-clarification-of-certain-vedȧntic-concepts_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/003/003_śaṅkaras-clarification-of-certain-vedȧntic-conc..._swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
+            "local_md_path": "processed_docs/english_books/003/003_śaṅkaras-clarification-of-certain-vedȧntic-conc..._swāmiji-sri-sri-satchidānandendra-saraswati.md",
+            "local_docx_path": "processed_docs/english_books/003/003_śaṅkaras-clarification-of-certain-vedȧntic-conc..._swāmiji-sri-sri-satchidānandendra-saraswati.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "51a41b31c4b22706f00cfb6fa76994845e9f801a306c13b58ac89c622adcdc6b",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "004",
@@ -51,7 +61,12 @@
             "local_pdf_path": "raw_pdf/english_books/004/004_how-to-recognize-the-method-of-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/004/004_how-to-recognize-the-method-of-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/004/004_how-to-recognize-the-method-of-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "402143c41484d19add8a5cf4be206dbba965354d041ba169bd53c8f9fa921e66",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "005",
@@ -63,7 +78,12 @@
             "local_pdf_path": "raw_pdf/english_books/005/005_avasthatraya-or-the-unique-method-of-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/005/005_avasthatraya-or-the-unique-method-of-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/005/005_avasthatraya-or-the-unique-method-of-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "2e320da9f4b67ac93649146bfb66551e9da6be032bcb30628a91c99b4130393b",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "006",
@@ -75,7 +95,12 @@
             "local_pdf_path": "raw_pdf/english_books/006/006_salient-features-of-śaṅkaras-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/006/006_salient-features-of-śaṅkaras-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/006/006_salient-features-of-śaṅkaras-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "f3762d1e1f62cf5f048b4e0da7c7879c9d327ea256e60a64d38e842de4dad351",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "007",
@@ -87,7 +112,12 @@
             "local_pdf_path": "raw_pdf/english_books/007/007_misconceptions-about-śaṅkara_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/007/007_misconceptions-about-śaṅkara_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/007/007_misconceptions-about-śaṅkara_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "079884a70f6ff1b9cf1806c91877afdf2b0730541852a09fbf6a6ba3ef017ab5",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "008",
@@ -99,7 +129,12 @@
             "local_pdf_path": "raw_pdf/english_books/008/008_the-vision-of-ātman_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/008/008_the-vision-of-ātman_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/008/008_the-vision-of-ātman_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "f6b78d58ebc649515c2b6a5b48182666424049c8699c39c1485ab373a27a3577",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "009",
@@ -111,7 +146,12 @@
             "local_pdf_path": "raw_pdf/english_books/009/009_intuition-of-reality_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/009/009_intuition-of-reality_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/009/009_intuition-of-reality_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "eada4a7add23cd78789ed2dd81cba05310eb3931713f27c89916696b5a14f0cb",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "010",
@@ -123,7 +163,12 @@
             "local_pdf_path": "raw_pdf/english_books/010/010_the-upanishadic-approach-to-reality_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/010/010_the-upanishadic-approach-to-reality_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/010/010_the-upanishadic-approach-to-reality_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "0842684de19615c26f122e970caf9de08fffeddb3436c9b3737822653001076d",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "011",
@@ -135,7 +180,12 @@
             "local_pdf_path": "raw_pdf/english_books/011/011_the-science-of-being_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/011/011_the-science-of-being_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/011/011_the-science-of-being_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "58a8ca76053a42777e46c1166a4db7dc0286fb998c4e591e42a29cbe37e3df5c",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "012",
@@ -147,7 +197,12 @@
             "local_pdf_path": "raw_pdf/english_books/012/012_essays-on-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/012/012_essays-on-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/012/012_essays-on-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "abc9079d6eac3537ec137b465b6f1c66e75c782b1f47133de75e5f1e8df09eeb",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "013",
@@ -159,7 +214,12 @@
             "local_pdf_path": "raw_pdf/english_books/013/013_suddha-sāṅkara-prakriyā-bhāskara_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/013/013_suddha-sāṅkara-prakriyā-bhāskara_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/013/013_suddha-sāṅkara-prakriyā-bhāskara_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "313eab378cdd1877d206ecdef4198f88951390392aac31c1c3d316068dd0b661",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "014",
@@ -171,7 +231,12 @@
             "local_pdf_path": "raw_pdf/english_books/014/014_sankaras-sutra-bhashya-self-explained_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/014/014_sankaras-sutra-bhashya-self-explained_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/014/014_sankaras-sutra-bhashya-self-explained_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "611a93fa20bf16db4530c7185c1adbebc1879e57801cb7b1c365a4283a73dc70",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "015",
@@ -183,7 +248,12 @@
             "local_pdf_path": "raw_pdf/english_books/015/015_introductions-to-vedānta-texts_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/015/015_introductions-to-vedānta-texts_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/015/015_introductions-to-vedānta-texts_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "dbc01b5e0d3a4c5f78dcefb91e958ffbc630cf48d6ded97dd6814f3ab51d7959",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "016",
@@ -192,10 +262,15 @@
             "title_english_slug": "īsāvāsyōpanishad-with-the-commentary-of-sri-sankaracharya",
             "author_english_slug": "swāmiji-sri-sri-satchidānandendra-saraswati",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/016/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/016/016_īsāvāsyōpanishad-with-the-commentary-of-sri-sankaracharya_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
-            "local_md_path": "processed_docs/english_books/016/016_īsāvāsyōpanishad-with-the-commentary-of-sri-sankaracharya_swāmiji-sri-sri-satchidānandendra-saraswati.md",
-            "local_docx_path": "processed_docs/english_books/016/016_īsāvāsyōpanishad-with-the-commentary-of-sri-sankaracharya_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/016/016_īsāvāsyōpanishad-with-the-commentary-of-sri-san..._swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
+            "local_md_path": "processed_docs/english_books/016/016_īsāvāsyōpanishad-with-the-commentary-of-sri-san..._swāmiji-sri-sri-satchidānandendra-saraswati.md",
+            "local_docx_path": "processed_docs/english_books/016/016_īsāvāsyōpanishad-with-the-commentary-of-sri-san..._swāmiji-sri-sri-satchidānandendra-saraswati.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "e56a32a72e9ebb2c58c7a6a2d87aa501fefc2099aa8499c9fc50d856bd1392e0",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "017",
@@ -204,10 +279,14 @@
             "title_english_slug": "vedanta-or-the-science-of-reality",
             "author_english_slug": "iyer-k-a-krishnaswamy",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/017/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.pdf",
-            "local_md_path": "processed_docs/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.md",
-            "local_docx_path": "processed_docs/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.docx",
-            "status": "pending"
+            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.pdf",
+            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.md",
+            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.docx",
+            "status": "failed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "8ec9daae6312a8b9b7edf278fad8eaf0790f1cb94a4484645e4cb00b419d661c",
+            "ocr_status": "failed",
+            "error_message": "OCR to Markdown failed after multiple retries."
         },
         {
             "id": "018",
@@ -219,7 +298,12 @@
             "local_pdf_path": "raw_pdf/english_books/018/018_collected-works-of-k-a-krishnaswamy-iyer_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/018/018_collected-works-of-k-a-krishnaswamy-iyer_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/018/018_collected-works-of-k-a-krishnaswamy-iyer_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "5506fce3e75ad8403fdef75dcf5fb307b40ab1877f50dd3b62211e11eb6ee5fb",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "019",
@@ -231,7 +315,12 @@
             "local_pdf_path": "raw_pdf/english_books/019/019_sri-sri-satchidanandendra-saraswathi_devaraj-smt-savithri.pdf",
             "local_md_path": "processed_docs/english_books/019/019_sri-sri-satchidanandendra-saraswathi_devaraj-smt-savithri.md",
             "local_docx_path": "processed_docs/english_books/019/019_sri-sri-satchidanandendra-saraswathi_devaraj-smt-savithri.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "3ce001ea771fcf930def214ffde3baed728993501f566d27bb3112e8fb106fce",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "021",
@@ -240,10 +329,15 @@
             "title_english_slug": "the-relevance-of-vedanta-in-this-modern-age-of-civilization",
             "author_english_slug": "gangolly-d-b",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/021/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/021/021_the-relevance-of-vedanta-in-this-modern-age-of-civilization_gangolly-d-b.pdf",
-            "local_md_path": "processed_docs/english_books/021/021_the-relevance-of-vedanta-in-this-modern-age-of-civilization_gangolly-d-b.md",
-            "local_docx_path": "processed_docs/english_books/021/021_the-relevance-of-vedanta-in-this-modern-age-of-civilization_gangolly-d-b.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/021/021_the-relevance-of-vedanta-in-this-modern-age-of-..._gangolly-d-b.pdf",
+            "local_md_path": "processed_docs/english_books/021/021_the-relevance-of-vedanta-in-this-modern-age-of-..._gangolly-d-b.md",
+            "local_docx_path": "processed_docs/english_books/021/021_the-relevance-of-vedanta-in-this-modern-age-of-..._gangolly-d-b.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "ca34bb191e088d78fc6928b37270deb9e0829b5a669f17a0158414722ce75bae",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "022",
@@ -255,7 +349,12 @@
             "local_pdf_path": "raw_pdf/english_books/022/022_a-broad-outline-of-vedanta_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/022/022_a-broad-outline-of-vedanta_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/022/022_a-broad-outline-of-vedanta_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "11116a3416270916de83488f9e2ca4ef52c2575daf6f2ef74f3074349ccf7e7c",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "023",
@@ -267,7 +366,12 @@
             "local_pdf_path": "raw_pdf/english_books/023/023_the-reality-beyond-all-empirical-dealings_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/023/023_the-reality-beyond-all-empirical-dealings_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/023/023_the-reality-beyond-all-empirical-dealings_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "c18803a5ec8f193e5bafcbde6b2766d57d4d214610e081775961d63106026ee8",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "024",
@@ -276,10 +380,15 @@
             "title_english_slug": "deliberation-on-the-ultimate-reality-culminating-in-intuitive-experience",
             "author_english_slug": "gangolly-d-b",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/024/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/024/024_deliberation-on-the-ultimate-reality-culminating-in-intuitive-experience_gangolly-d-b.pdf",
-            "local_md_path": "processed_docs/english_books/024/024_deliberation-on-the-ultimate-reality-culminating-in-intuitive-experience_gangolly-d-b.md",
-            "local_docx_path": "processed_docs/english_books/024/024_deliberation-on-the-ultimate-reality-culminating-in-intuitive-experience_gangolly-d-b.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/024/024_deliberation-on-the-ultimate-reality-culminatin..._gangolly-d-b.pdf",
+            "local_md_path": "processed_docs/english_books/024/024_deliberation-on-the-ultimate-reality-culminatin..._gangolly-d-b.md",
+            "local_docx_path": "processed_docs/english_books/024/024_deliberation-on-the-ultimate-reality-culminatin..._gangolly-d-b.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "6f573f4773641b6b2a97dec09d0b9b32295525161095a8b2efe42b10c2fd3837",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "025",
@@ -291,7 +400,12 @@
             "local_pdf_path": "raw_pdf/english_books/025/025_brahmavidya-or-knowledge-of-the-ultimate-reality_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/025/025_brahmavidya-or-knowledge-of-the-ultimate-reality_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/025/025_brahmavidya-or-knowledge-of-the-ultimate-reality_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "7756f08fc511306f3acad6a32c2372576a736acbff4ab6381fbdba15a6718411",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "026",
@@ -303,7 +417,12 @@
             "local_pdf_path": "raw_pdf/english_books/026/026_the-quintessence-of-pristine-pure-vedanta_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/026/026_the-quintessence-of-pristine-pure-vedanta_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/026/026_the-quintessence-of-pristine-pure-vedanta_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "26502cd3a615993f5583b8fdf5873ea7d9397f4723df5b50a3bdb7f9859dbaed",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "027",
@@ -315,7 +434,12 @@
             "local_pdf_path": "raw_pdf/english_books/027/027_the-philosophical-science-of-vedanta_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/027/027_the-philosophical-science-of-vedanta_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/027/027_the-philosophical-science-of-vedanta_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "17fff2ea0d42042b73cd4d82b3a53cb1c6287e90da85610b41dc2defebbca64b",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "028",
@@ -327,7 +451,12 @@
             "local_pdf_path": "raw_pdf/english_books/028/028_vedanta-the-only-consummate-spiritual-science_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/028/028_vedanta-the-only-consummate-spiritual-science_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/028/028_vedanta-the-only-consummate-spiritual-science_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "433cb35d914aa3fc50b092c2534fc1aca3640066a26f31fbc722c873908cd292",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "029",
@@ -339,7 +468,12 @@
             "local_pdf_path": "raw_pdf/english_books/029/029_the-unique-teaching-of-shankara_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/029/029_the-unique-teaching-of-shankara_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/029/029_the-unique-teaching-of-shankara_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "e94bdca52f5b1df3f75544209813feb160e67c81418fabc6191a1bf805461f70",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "030",
@@ -351,7 +485,12 @@
             "local_pdf_path": "raw_pdf/english_books/030/030_the-scientific-approach-of-shankara-vedanta_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/030/030_the-scientific-approach-of-shankara-vedanta_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/030/030_the-scientific-approach-of-shankara-vedanta_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "a1d197ac314a9444b23936f418bb41e443098dd7b8a9cf7d5fb81e15eacf5a4c",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "031",
@@ -360,10 +499,15 @@
             "title_english_slug": "sri-satchidānandendra-saraswati-swāmīji-an-advent-of-ādi-śaṅkarāchārya-in-our-own-times",
             "author_english_slug": "gangolly-d-b",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/031/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/031/031_sri-satchidānandendra-saraswati-swāmīji-an-advent-of-ādi-śaṅkarāchārya-in-our-own-times_gangolly-d-b.pdf",
-            "local_md_path": "processed_docs/english_books/031/031_sri-satchidānandendra-saraswati-swāmīji-an-advent-of-ādi-śaṅkarāchārya-in-our-own-times_gangolly-d-b.md",
-            "local_docx_path": "processed_docs/english_books/031/031_sri-satchidānandendra-saraswati-swāmīji-an-advent-of-ādi-śaṅkarāchārya-in-our-own-times_gangolly-d-b.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/031/031_sri-satchidānandendra-saraswati-swāmīji-an-adve..._gangolly-d-b.pdf",
+            "local_md_path": "processed_docs/english_books/031/031_sri-satchidānandendra-saraswati-swāmīji-an-adve..._gangolly-d-b.md",
+            "local_docx_path": "processed_docs/english_books/031/031_sri-satchidānandendra-saraswati-swāmīji-an-adve..._gangolly-d-b.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "ae5c4975b994d4a0a418f48a72331f279918bf99079a3fe5853086bcd427ac21",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "032",
@@ -372,10 +516,14 @@
             "title_english_slug": "the-magic-jewel-of-intuition-the-tri-basic-method-of-cognizing-the-self",
             "author_english_slug": "gangolly-d-b",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/032/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-method-of-cognizing-the-self_gangolly-d-b.pdf",
-            "local_md_path": "processed_docs/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-method-of-cognizing-the-self_gangolly-d-b.md",
-            "local_docx_path": "processed_docs/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-method-of-cognizing-the-self_gangolly-d-b.docx",
-            "status": "pending"
+            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-meth..._gangolly-d-b.pdf",
+            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-meth..._gangolly-d-b.md",
+            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-meth..._gangolly-d-b.docx",
+            "status": "failed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "be3dde140af83eeb475b72a5cb5e6babee14b34c839714c3736db93b9b02a0e1",
+            "ocr_status": "failed",
+            "error_message": "PDF file missing or corrupted before OCR."
         },
         {
             "id": "033",
@@ -387,7 +535,12 @@
             "local_pdf_path": "raw_pdf/english_books/033/033_the-essential-ādi-shankara_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/033/033_the-essential-ādi-shankara_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/033/033_the-essential-ādi-shankara_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "d96f485646b99a751db744cff5c1244e3243a29eda76fd3658662ad97e0b1396",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "034",
@@ -396,10 +549,14 @@
             "title_english_slug": "the-essential-gauḍāpada",
             "author_english_slug": "gangolly-d-b",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/034/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.pdf",
-            "local_md_path": "processed_docs/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.md",
-            "local_docx_path": "processed_docs/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.docx",
-            "status": "pending"
+            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.pdf",
+            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.md",
+            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.docx",
+            "status": "failed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "0234090ef7c300447bb10388b3bb9052f8fa04427e481c0c5202bcd8cab5cf7d",
+            "ocr_status": "failed",
+            "error_message": "OCR to Markdown failed after multiple retries."
         },
         {
             "id": "036",
@@ -411,7 +568,12 @@
             "local_pdf_path": "raw_pdf/english_books/036/036_intuitive-approach-of-shankaras-vedanta_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/036/036_intuitive-approach-of-shankaras-vedanta_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/036/036_intuitive-approach-of-shankaras-vedanta_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "d39aff88aa3b5a4afe67f58fa2487f108aaaa2a19e58690f49830d13d6ff3950",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "037",
@@ -423,7 +585,12 @@
             "local_pdf_path": "raw_pdf/english_books/037/037_the-basic-tenets-of-śāṅkara-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/037/037_the-basic-tenets-of-śāṅkara-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/037/037_the-basic-tenets-of-śāṅkara-vedānta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "9a7d90c35181b8f94807f3a705c5262b1e8c441fe0152e34a1e2129dc1c363c4",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "038",
@@ -432,10 +599,15 @@
             "title_english_slug": "the-pristine-pure-advaita-philosophy-of-ādi-śaṅkara-śaṅkara-siddhānta",
             "author_english_slug": "swāmiji-sri-sri-satchidānandendra-saraswati",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/038/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/038/038_the-pristine-pure-advaita-philosophy-of-ādi-śaṅkara-śaṅkara-siddhānta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
-            "local_md_path": "processed_docs/english_books/038/038_the-pristine-pure-advaita-philosophy-of-ādi-śaṅkara-śaṅkara-siddhānta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
-            "local_docx_path": "processed_docs/english_books/038/038_the-pristine-pure-advaita-philosophy-of-ādi-śaṅkara-śaṅkara-siddhānta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/038/038_the-pristine-pure-advaita-philosophy-of-ādi-śaṅ..._swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
+            "local_md_path": "processed_docs/english_books/038/038_the-pristine-pure-advaita-philosophy-of-ādi-śaṅ..._swāmiji-sri-sri-satchidānandendra-saraswati.md",
+            "local_docx_path": "processed_docs/english_books/038/038_the-pristine-pure-advaita-philosophy-of-ādi-śaṅ..._swāmiji-sri-sri-satchidānandendra-saraswati.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "9db81e97df72ab24413b2972c73a34c409f58b1d39a17fd4d6ec2bc1df545594",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "039",
@@ -444,10 +616,15 @@
             "title_english_slug": "advaita-pancharatnam-an-introduction-to-the-spiritual-science-of-advaita-vedanta-in-five-verses",
             "author_english_slug": "gangolly-d-b",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/039/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/039/039_advaita-pancharatnam-an-introduction-to-the-spiritual-science-of-advaita-vedanta-in-five-verses_gangolly-d-b.pdf",
-            "local_md_path": "processed_docs/english_books/039/039_advaita-pancharatnam-an-introduction-to-the-spiritual-science-of-advaita-vedanta-in-five-verses_gangolly-d-b.md",
-            "local_docx_path": "processed_docs/english_books/039/039_advaita-pancharatnam-an-introduction-to-the-spiritual-science-of-advaita-vedanta-in-five-verses_gangolly-d-b.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/039/039_advaita-pancharatnam-an-introduction-to-the-spi..._gangolly-d-b.pdf",
+            "local_md_path": "processed_docs/english_books/039/039_advaita-pancharatnam-an-introduction-to-the-spi..._gangolly-d-b.md",
+            "local_docx_path": "processed_docs/english_books/039/039_advaita-pancharatnam-an-introduction-to-the-spi..._gangolly-d-b.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "662cc600f2e659dfb0e9d754b314f290447302491fdf7924c1c83bbe167cdd0a",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "040",
@@ -459,7 +636,12 @@
             "local_pdf_path": "raw_pdf/english_books/040/040_the-principal-teachings-of-bhagavadgeeta_gangolly-d-b.pdf",
             "local_md_path": "processed_docs/english_books/040/040_the-principal-teachings-of-bhagavadgeeta_gangolly-d-b.md",
             "local_docx_path": "processed_docs/english_books/040/040_the-principal-teachings-of-bhagavadgeeta_gangolly-d-b.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "c773e24668e979008c4dc4f77259aa08ead4d946aaea4c64c495714b7c2a0db7",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "042",
@@ -471,7 +653,12 @@
             "local_pdf_path": "raw_pdf/english_books/042/042_the-heart-of-sri-samkara_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/042/042_the-heart-of-sri-samkara_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/042/042_the-heart-of-sri-samkara_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "b32c4a6dd4a06d9683315c279e4f2dd664ffea8aa389f5221f203db2e2065dc2",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "044",
@@ -483,7 +670,12 @@
             "local_pdf_path": "raw_pdf/english_books/044/044_vedanta-jijnasa_swāmiji-sri-jnananandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/044/044_vedanta-jijnasa_swāmiji-sri-jnananandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/044/044_vedanta-jijnasa_swāmiji-sri-jnananandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "39bde98f2cb342715e5eaf490266911953f7ca3fd222bccfbc3af9b92debc98b",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "050",
@@ -495,7 +687,12 @@
             "local_pdf_path": "raw_pdf/english_books/050/050_articles-and-thoughts-on-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/050/050_articles-and-thoughts-on-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/050/050_articles-and-thoughts-on-vedanta_swāmiji-sri-sri-satchidānandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "8af2dc522905e130aac0b22c66cde305bc9c797c90f0e85ed90ceb64bdd02bd7",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "051",
@@ -504,10 +701,15 @@
             "title_english_slug": "gītā-sādhana-sopāna-steps-to-self-realization-as-taught-in-the-bhagavad-gītā",
             "author_english_slug": "swāmiji-sri-sri-ātmānandendra-saraswati",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/051/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/051/051_gītā-sādhana-sopāna-steps-to-self-realization-as-taught-in-the-bhagavad-gītā_swāmiji-sri-sri-ātmānandendra-saraswati.pdf",
-            "local_md_path": "processed_docs/english_books/051/051_gītā-sādhana-sopāna-steps-to-self-realization-as-taught-in-the-bhagavad-gītā_swāmiji-sri-sri-ātmānandendra-saraswati.md",
-            "local_docx_path": "processed_docs/english_books/051/051_gītā-sādhana-sopāna-steps-to-self-realization-as-taught-in-the-bhagavad-gītā_swāmiji-sri-sri-ātmānandendra-saraswati.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/051/051_gītā-sādhana-sopāna-steps-to-self-realization-a..._swāmiji-sri-sri-ātmānandendra-saraswati.pdf",
+            "local_md_path": "processed_docs/english_books/051/051_gītā-sādhana-sopāna-steps-to-self-realization-a..._swāmiji-sri-sri-ātmānandendra-saraswati.md",
+            "local_docx_path": "processed_docs/english_books/051/051_gītā-sādhana-sopāna-steps-to-self-realization-a..._swāmiji-sri-sri-ātmānandendra-saraswati.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "56ed866ca79f0e2c3a43bb8d73467467cc250054d23979969985dc02091d80c2",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "052",
@@ -516,10 +718,15 @@
             "title_english_slug": "dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommemoration-volume",
             "author_english_slug": "swāmiji-shri-swami-prakashanandendra-saraswati-shri-swami-advayanandendra-saraswati-shri-dr-ksramanatha-sharma",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/052/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/052/052_dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommemoration-volume_swāmiji-shri-swami-prakashanandendra-saraswati-shri-swami-advayanandendra-saraswati-shri-dr-ksramanatha-sharma.pdf",
-            "local_md_path": "processed_docs/english_books/052/052_dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommemoration-volume_swāmiji-shri-swami-prakashanandendra-saraswati-shri-swami-advayanandendra-saraswati-shri-dr-ksramanatha-sharma.md",
-            "local_docx_path": "processed_docs/english_books/052/052_dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommemoration-volume_swāmiji-shri-swami-prakashanandendra-saraswati-shri-swami-advayanandendra-saraswati-shri-dr-ksramanatha-sharma.docx",
-            "status": "pending"
+            "local_pdf_path": "raw_pdf/english_books/052/052_dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommem..._swāmiji-shri-swami-prakashanandendra-saraswati-....pdf",
+            "local_md_path": "processed_docs/english_books/052/052_dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommem..._swāmiji-shri-swami-prakashanandendra-saraswati-....md",
+            "local_docx_path": "processed_docs/english_books/052/052_dakṣiṇabhārata-śāṅkaravedāntavidvadgoṣṭhicommem..._swāmiji-shri-swami-prakashanandendra-saraswati-....docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "93696cd3a059473047f2acaf592adbbbe60bd95383c5000198cb0d2134003b4c",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "053",
@@ -528,10 +735,14 @@
             "title_english_slug": "śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva",
             "author_english_slug": "sri-sachidaanandendra-saraswathi-swamy",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/053/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/053/053_śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva_sri-sachidaanandendra-saraswathi-swamy.pdf",
-            "local_md_path": "processed_docs/english_books/053/053_śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva_sri-sachidaanandendra-saraswathi-swamy.md",
-            "local_docx_path": "processed_docs/english_books/053/053_śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva_sri-sachidaanandendra-saraswathi-swamy.docx",
-            "status": "pending"
+            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/053/053_śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva_sri-sachidaanandendra-saraswathi-swamy.pdf",
+            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/053/053_śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva_sri-sachidaanandendra-saraswathi-swamy.md",
+            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/053/053_śri-śaṅkara-bhagavatpāda-vṛttānta-sāra-sarvasva_sri-sachidaanandendra-saraswathi-swamy.docx",
+            "status": "failed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "b4b5b76334329265b3bad6dacb3b8fea39289e34ce2d0cf276854f949a29ca66",
+            "ocr_status": "failed",
+            "error_message": "OCR to Markdown failed after multiple retries."
         },
         {
             "id": "054",
@@ -543,7 +754,12 @@
             "local_pdf_path": "raw_pdf/english_books/054/054_sri-shankaras-adwaitha-siddhantha_s-vittala-sastri.pdf",
             "local_md_path": "processed_docs/english_books/054/054_sri-shankaras-adwaitha-siddhantha_s-vittala-sastri.md",
             "local_docx_path": "processed_docs/english_books/054/054_sri-shankaras-adwaitha-siddhantha_s-vittala-sastri.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "74fe171dac3927930eb5aa4b08440ca31fd664bf2eb296062068b69faf65cd49",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "055",
@@ -555,7 +771,12 @@
             "local_pdf_path": "raw_pdf/english_books/055/055_gateway-to-the-upanishads_swami-satchidanandendra-saraswati.pdf",
             "local_md_path": "processed_docs/english_books/055/055_gateway-to-the-upanishads_swami-satchidanandendra-saraswati.md",
             "local_docx_path": "processed_docs/english_books/055/055_gateway-to-the-upanishads_swami-satchidanandendra-saraswati.docx",
-            "status": "pending"
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "40055716f070013f6680275154e04625f849b9c28c2a63a8e3ee882ee451f965",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "056",
@@ -564,10 +785,15 @@
             "title_english_slug": "collected-books-and-articles-on-vedantaguide-lines-to-shankara-vedanta-adhyatma-yoga-avasthaatraya-viveka-teaching-of-brahman-through-the-attributions-of-avidya-and-maya-prospectus-for-teaching-genuine-vedanta-articles-of-devarao-kulkarni-on-vedanta",
             "author_english_slug": "sri-devarao-kulkarni",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/056/index.pdf",
-            "local_pdf_path": "raw_pdf/english_books/056/056_collected-books-and-articles-on-vedantaguide-lines-to-shankara-vedanta-adhyatma-yoga-avasthaatraya-viveka-teaching-of-brahman-through-the-attributions-of-avidya-and-maya-prospectus-for-teaching-genuine-vedanta-articles-of-devarao-kulkarni-on-vedanta_sri-devarao-kulkarni.pdf",
-            "local_md_path": "processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-lines-to-shankara-vedanta-adhyatma-yoga-avasthaatraya-viveka-teaching-of-brahman-through-the-attributions-of-avidya-and-maya-prospectus-for-teaching-genuine-vedanta-articles-of-devarao-kulkarni-on-vedanta_sri-devarao-kulkarni.md",
-            "local_docx_path": "processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-lines-to-shankara-vedanta-adhyatma-yoga-avasthaatraya-viveka-teaching-of-brahman-through-the-attributions-of-avidya-and-maya-prospectus-for-teaching-genuine-vedanta-articles-of-devarao-kulkarni-on-vedanta_sri-devarao-kulkarni.docx",
-            "status": "pending"
+            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.pdf",
+            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.md",
+            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.docx",
+            "status": "completed",
+            "download_status": "completed",
+            "pdf_sha256_hash": "40c61e7db98fea2b0c21c805e8e003412b7f9de7b32d919af2acd0db7f3c1fb4",
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         }
     ]
 }

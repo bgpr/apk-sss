@@ -16,3 +16,4 @@ test_env_load.log
 test_python_version.log
 !README.md
 
+full_run_unified.log

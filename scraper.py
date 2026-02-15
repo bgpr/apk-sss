@@ -60,6 +60,12 @@ def get_full_path_for_book(base_dir_root, page_slug, book_id, filename):
     os.makedirs(index_dir, exist_ok=True)
     return os.path.join(index_dir, filename)
 
+def truncate_string(text, max_length):
+    """Truncates a string to max_length, adding '...' if truncated."""
+    if len(text) > max_length:
+        return text[:max_length - 3] + "..."
+    return text
+
 # --- Main Scraper Logic ---
 
 def scrape_books(url, existing_books_map=None, language="kannada"):
@@ -154,9 +160,14 @@ def scrape_books(url, existing_books_map=None, language="kannada"):
                 transliterated_title_slug = slugify(title_original)
                 transliterated_author_slug = slugify(author_original)
             
-            filename_parts = [transliterated_title_slug]
-            if transliterated_author_slug:
-                filename_parts.append(transliterated_author_slug)
+            # Truncate slugs for filename to avoid "File name too long" errors
+            max_slug_length = 50 # Keep slugs to a reasonable length for filenames
+            truncated_title_slug = truncate_string(transliterated_title_slug, max_slug_length)
+            truncated_author_slug = truncate_string(transliterated_author_slug, max_slug_length)
+
+            filename_parts = [truncated_title_slug]
+            if truncated_author_slug:
+                filename_parts.append(truncated_author_slug)
             
             base_filename = f"{book_id}_{'_'.join(filter(None, filename_parts))}.pdf"
             
@@ -164,8 +175,8 @@ def scrape_books(url, existing_books_map=None, language="kannada"):
                 "id": book_id, # Use extracted book_id as unique identifier
                 "title_original": title_original, # Store original title
                 "author_original": author_original, # Store original author
-                "title_english_slug": transliterated_title_slug,
-                "author_english_slug": transliterated_author_slug,
+                "title_english_slug": transliterated_title_slug, # Store full slug in state
+                "author_english_slug": transliterated_author_slug, # Store full slug in state
                 "pdf_url": urljoin(url, pdf_relative_url), # Ensure absolute URL
                 "local_pdf_path": get_full_path_for_book(RAW_PDF_BASE_DIR, page_slug, book_id, base_filename),
                 "local_md_path": get_full_path_for_book(PROCESSED_DOCS_BASE_DIR, page_slug, book_id, base_filename.replace('.pdf', '.md')),
