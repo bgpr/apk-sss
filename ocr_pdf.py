@@ -8,6 +8,8 @@ import io
 import subprocess # Added for pandoc
 import logging # Import logging module
 import traceback # Import traceback for detailed exception info
+from PyPDF2 import PdfReader # Import PyPDF2
+from PyPDF2.errors import PdfReadError # Import specific error for PDF corruption
 
 # Configure logging for ocr_pdf.py
 logging.basicConfig(
@@ -40,7 +42,30 @@ except ImportError:
 
 # Flag to temporarily disable Sarvam AI OCR for debugging/testing purposes
 # Set to True to skip Sarvam AI API calls.
-DISABLE_SARVAM_AI_OCR = False # <--- SET THIS TO FALSE
+DISABLE_SARVAM_AI_OCR = False 
+
+# Sarvam AI page limit for OCR
+SARVAM_AI_PAGE_LIMIT = 500
+
+def get_pdf_page_count_and_check_integrity(pdf_path):
+    """
+    Returns the number of pages in a PDF and checks for basic integrity.
+    Returns (page_count, None) on success, (0, error_message) on failure/corruption.
+    """
+    if not os.path.exists(pdf_path):
+        return 0, "PDF file not found."
+    
+    try:
+        reader = PdfReader(pdf_path)
+        page_count = len(reader.pages)
+        # Attempt to read a page to check for corruption
+        if page_count > 0:
+            _ = reader.pages[0] # Try to access the first page
+        return page_count, None
+    except PdfReadError as e:
+        return 0, f"Corrupted PDF file: {e}"
+    except Exception as e:
+        return 0, f"Error reading PDF file: {e}"
 
 # Function to handle Markdown to DOCX conversion
 def process_markdown_to_docx(md_input_path, docx_output_path):
@@ -81,7 +106,7 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
     logger.debug(f"Received output_md_path: {output_md_path}") # DEBUG PRINT
 
     if not os.path.exists(pdf_path):
-        logger.error(f"PDF file not found at {pdf_path}")
+        logger.error(f"PDF file not found at {pdf_path}. Cannot proceed with OCR.")
         return None
 
     # Ensure the output directory exists for the MD file
@@ -94,6 +119,27 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
             f_out.write(placeholder_content)
         logger.info(f"Placeholder MD created at {output_md_path}")
         return os.path.abspath(output_md_path)
+
+    # --- Pre-OCR PDF Check with PyPDF2 ---
+    page_count, pdf_error = get_pdf_page_count_and_check_integrity(pdf_path)
+    if pdf_error:
+        logger.error(f"PDF pre-check failed for '{os.path.basename(pdf_path)}': {pdf_error}. Skipping OCR.")
+        # Create a placeholder MD for the corrupted file as well, for consistency
+        placeholder_content = f"# OCR Failed for {os.path.basename(pdf_path)}\n\nError: {pdf_error}\nThis is a placeholder Markdown file due to PDF pre-check failure."
+        with open(output_md_path, 'w', encoding='utf-8') as f_out:
+            f_out.write(placeholder_content)
+        return None # Indicate failure
+
+    if page_count > SARVAM_AI_PAGE_LIMIT:
+        error_msg = f"PDF has {page_count} pages, which exceeds the maximum allowed by Sarvam AI ({SARVAM_AI_PAGE_LIMIT} pages). Skipping OCR."
+        logger.error(f"PDF pre-check failed for '{os.path.basename(pdf_path)}': {error_msg}")
+        # Create a placeholder MD for the large file
+        placeholder_content = f"# OCR Failed for {os.path.basename(pdf_path)}\n\nError: {error_msg}\nThis is a placeholder Markdown file due to page limit."
+        with open(output_md_path, 'w', encoding='utf-8') as f_out:
+            f_out.write(placeholder_content)
+        return None # Indicate failure
+    
+    logger.info(f"PDF pre-check passed for '{os.path.basename(pdf_path)}'. Page count: {page_count}.")
 
 
     # Initialize SarvamAI client
