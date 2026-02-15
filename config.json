@@ -10,6 +10,13 @@
         "name": "English Books",
         "url": "https://adhyatmaprakasha.org/php/english_books.php",
         "language": "english",
+        "process_flag": false,
+        "limit": null
+    },
+    {
+        "name": "Sanskrit Books",
+        "url": "https://adhyatmaprakasha.org/php/sanskrit_books.php",
+        "language": "sanskrit",
         "process_flag": true,
         "limit": null
     }
