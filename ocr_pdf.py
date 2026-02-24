@@ -3,6 +3,7 @@ import json
 import time
 import os
 import sys
+import shutil # Import shutil for rmtree
 import zipfile
 import io
 import subprocess # Added for pandoc
@@ -138,6 +139,64 @@ def process_markdown_to_docx(md_input_path, docx_output_path):
         logger.error("Pandoc is not installed or not in PATH. Please install pandoc.")
         return False
 
+def calculate_ocr_confidence_metrics(metadata_dir, confidence_threshold=0.7):
+    """
+    Calculates OCR confidence metrics from a directory of Sarvam AI page metadata JSONs.
+    Returns a dictionary containing:
+    - 'avg_page_confidence': Average confidence across all processed blocks on all pages.
+    - 'low_confidence_blocks_count': Total number of blocks with confidence below the threshold.
+    - 'pages_with_low_confidence_blocks': A list of page numbers that contain at least one low-confidence block.
+    - 'low_confidence_blocks_details': A list of (page_num, block_id, confidence, text) for low-confidence blocks.
+    """
+    total_confidence = 0.0
+    total_blocks = 0
+    low_confidence_blocks_count = 0
+    pages_with_low_confidence_blocks = set()
+    low_confidence_blocks_details = []
+
+    if not os.path.exists(metadata_dir):
+        logger.warning(f"Metadata directory not found: {metadata_dir}. Skipping confidence calculation.")
+        return {
+            'avg_page_confidence': None,
+            'low_confidence_blocks_count': 0,
+            'pages_with_low_confidence_blocks': [],
+            'low_confidence_blocks_details': []
+        }
+
+    json_files = sorted([f for f in os.listdir(metadata_dir) if f.endswith('.json')])
+
+    for json_file in json_files:
+        json_path = os.path.join(metadata_dir, json_file)
+        with open(json_path, 'r', encoding='utf-8') as f:
+            page_data = json.load(f)
+        
+        page_num = page_data.get('page_num', os.path.basename(json_file).replace('page_', '').replace('.json', ''))
+        
+        if 'blocks' in page_data:
+            for block in page_data['blocks']:
+                if 'confidence' in block:
+                    total_confidence += block['confidence']
+                    total_blocks += 1
+                    if block['confidence'] < confidence_threshold:
+                        low_confidence_blocks_count += 1
+                        pages_with_low_confidence_blocks.add(page_num)
+                        low_confidence_blocks_details.append({
+                            'page_num': page_num,
+                            'block_id': block.get('block_id'),
+                            'confidence': block['confidence'],
+                            'text': block.get('text', '')
+                        })
+    
+    avg_page_confidence = (total_confidence / total_blocks) if total_blocks > 0 else None
+
+    return {
+        'avg_page_confidence': avg_page_confidence,
+        'low_confidence_blocks_count': low_confidence_blocks_count,
+        'pages_with_low_confidence_blocks': sorted(list(pages_with_low_confidence_blocks)),
+        'low_confidence_blocks_details': low_confidence_blocks_details
+    }
+
+
 def _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code, output_format):
     """
     Helper function to perform OCR on a single PDF (or chunk) using Sarvam AI SDK.
@@ -187,14 +246,27 @@ def _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code
 
             with zipfile.ZipFile(temp_zip_path, 'r') as z:
                 md_files = [f.filename for f in z.infolist() if f.filename.endswith(f'.{output_format}')]
+                json_files = [f.filename for f in z.infolist() if f.filename.startswith('metadata/') and f.filename.endswith('.json')]
+                
                 if not md_files:
                     logger.error(f"No {output_format} file found in the downloaded ZIP for chunk '{os.path.basename(pdf_path)}'.")
                     os.remove(temp_zip_path)
                     return None
                 
+                # Extract markdown file
                 with open(output_md_path, 'w', encoding='utf-8') as f_out:
                     f_out.write(z.read(md_files[0]).decode('utf-8'))
-            logger.info(f"Successfully extracted {output_format} from chunk to {output_md_path}")
+                logger.info(f"Successfully extracted {output_format} from chunk to {output_md_path}")
+
+                # Extract JSON metadata files
+                metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
+                os.makedirs(metadata_dir, exist_ok=True)
+                for json_file in json_files:
+                    json_output_path = os.path.join(metadata_dir, os.path.basename(json_file))
+                    with open(json_output_path, 'wb') as f_out:
+                        f_out.write(z.read(json_file))
+                    logger.debug(f"Extracted metadata file: {json_output_path}")
+            
             os.remove(temp_zip_path) # Clean up temporary zip
             return os.path.abspath(output_md_path)
         else:
@@ -278,11 +350,47 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
                     final_md.write("\n\n---\n\n") # Separator between chunks
                 os.remove(chunk_md_file) # Clean up individual chunk MD
         logger.info(f"Successfully merged all chunks into {output_md_path}")
+        
+        # Calculate and log confidence metrics for the merged document
+        metadata_dirs = [os.path.join(os.path.dirname(md_path), "metadata") for md_path in all_chunk_md_paths]
+        # For simplicity, we'll just report on the first chunk's metadata for now, or aggregate if needed.
+        # A more robust solution might aggregate metrics from all chunks.
+        if metadata_dirs and os.path.exists(metadata_dirs[0]):
+            merged_metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
+            os.makedirs(merged_metadata_dir, exist_ok=True)
+            for mdir in metadata_dirs:
+                for json_f in os.listdir(mdir):
+                    if json_f.endswith('.json'):
+                        os.rename(os.path.join(mdir, json_f), os.path.join(merged_metadata_dir, json_f))
+                shutil.rmtree(mdir) # Remove chunk metadata directory
+
+            confidence_metrics = calculate_ocr_confidence_metrics(merged_metadata_dir)
+            logger.info(f"Confidence Metrics for merged document '{os.path.basename(pdf_path)}':")
+            logger.info(f"  Average Block Confidence: {confidence_metrics['avg_page_confidence']:.2f}")
+            logger.info(f"  Low Confidence Blocks (<0.7): {confidence_metrics['low_confidence_blocks_count']}")
+            if confidence_metrics['pages_with_low_confidence_blocks']:
+                logger.info(f"  Pages with Low Confidence Blocks: {confidence_metrics['pages_with_low_confidence_blocks']}")
+        
         return os.path.abspath(output_md_path)
 
     logger.info(f"PDF pre-check passed for '{os.path.basename(pdf_path)}'. Page count: {page_count}. Performing OCR directly.")
     # Fall through to original single PDF OCR logic if not chunked
-    return _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code, output_format)
+    md_file_path = _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code, output_format)
+    
+    if md_file_path:
+        # Calculate and log confidence metrics for the single document
+        metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
+        if os.path.exists(metadata_dir):
+            confidence_metrics = calculate_ocr_confidence_metrics(metadata_dir)
+            logger.info(f"Confidence Metrics for document '{os.path.basename(pdf_path)}':")
+            logger.info(f"  Average Block Confidence: {confidence_metrics['avg_page_confidence']:.2f}")
+            logger.info(f"  Low Confidence Blocks (<0.7): {confidence_metrics['low_confidence_blocks_count']}")
+            if confidence_metrics['pages_with_low_confidence_blocks']:
+                logger.info(f"  Pages with Low Confidence Blocks: {confidence_metrics['pages_with_low_confidence_blocks']}")
+        
+        return md_file_path
+    
+    return None
 
 
 if __name__ == "__main__":
