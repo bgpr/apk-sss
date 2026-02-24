@@ -1,23 +1,121 @@
-[
-    {
-        "name": "Kannada Books",
-        "url": "https://adhyatmaprakasha.org/php/kannada_books.php",
-        "language": "kannada",
-        "process_flag": true,
-        "limit": null
+{
+    "domain_handlers": {
+        "archive.org": "archive_utils"
     },
-    {
-        "name": "English Books",
-        "url": "https://adhyatmaprakasha.org/php/english_books.php",
-        "language": "english",
-        "process_flag": true,
-        "limit": null
-    },
-    {
-        "name": "Sanskrit Books",
-        "url": "https://adhyatmaprakasha.org/php/sanskrit_books.php",
-        "language": "sanskrit",
-        "process_flag": true,
-        "limit": null
-    }
-]
+    "pages": [
+        {
+            "name": "Kannada Books",
+            "url": "https://adhyatmaprakasha.org/php/kannada_books.php",
+            "language": "kn-IN",
+            "process_flag": false,
+            "limit": null
+        },
+        {
+            "name": "English Books",
+            "url": "https://adhyatmaprakasha.org/php/english_books.php",
+            "language": "en-IN",
+            "process_flag": false,
+            "limit": null
+        },
+        {
+            "name": "Sanskrit Books",
+            "url": "https://adhyatmaprakasha.org/php/sanskrit_books.php",
+            "language": "sa-IN",
+            "process_flag": false,
+            "limit": null
+        },
+        {
+            "name": "Assorted Books",
+            "url": null,
+            "language": "en-IN",
+            "process_flag": true,
+            "limit": null,
+            "books": [
+                {
+                    "id": "A001",
+                    "title_original": "Kumara Sambhava Of Kalidasa",
+                    "author_original": "M.R. Kale",
+                    "pdf_url": "https://archive.org/details/KumaraSambhavaOfKalidasaM.R.Kale/page/n10/mode/1up?hl=en-AU"
+                },
+                {
+                    "id": "A002",
+                    "title_original": "History Of Dharmasastra Vol-i (1930)",
+                    "author_original": "Kane Pandurang Vaman",
+                    "pdf_url": "https://archive.org/details/dli.ernet.1042"
+                },
+                {
+                    "id": "A003",
+                    "title_original": "History Of Dharmasastra Part-i Vol-ii (1941)",
+                    "author_original": "Kane Pandurang Vaman",
+                    "pdf_url": "https://archive.org/details/dli.ernet.236631"
+                },
+                {
+                    "id": "A004",
+                    "title_original": "History Of Dharmasastra Vol. 2 Part 2",
+                    "author_original": "Kane, Pandurang Vaman",
+                    "pdf_url": "https://archive.org/details/in.ernet.dli.2015.31535"
+                },
+                {
+                    "id": "A005",
+                    "title_original": "History Of Dharmasastra Vol. 3",
+                    "author_original": "Kane, Pandurang Vaman",
+                    "pdf_url": "https://archive.org/details/in.ernet.dli.2015.291330"
+                },
+                {
+                    "id": "A006",
+                    "title_original": "Government Oriental Series Classb,no.6 Vol-iv(1953)ac.3309",
+                    "author_original": "Kane,pandurang Vaman",
+                    "pdf_url": "https://archive.org/details/in.ernet.dli.2015.426250"
+                },
+                {
+                    "id": "A007",
+                    "title_original": "History of Dharma Sastra vol.5; pt.2",
+                    "author_original": "Kane, Pandurang Vaman",
+                    "pdf_url": "https://archive.org/details/in.gov.ignca.36522"
+                },
+                {
+                    "id": "A008",
+                    "title_original": "ಆನಂದವರ್ಧನನ ಕಾವ್ಯಮೀಮಾಂಸೆ ಮತ್ತು ಕನ್ನಡ ಧ್ವನ್ಯಾಲೋಕ",
+                    "author_original": "ಡಾ. ಕೆ. ಕೃಷ್ಣ‍ಮೂರ್ತಿ",
+                    "pdf_url": "https://archive.org/download/in.ernet.dli.2015.363599/in.ernet.dli.2015.363599.pdf",
+                    "language": "kn-IN"
+                },
+                {
+                    "id": "A009",
+                    "title_original": "Bhaskari III",
+                    "author_original": "K C Pandey",
+                    "pdf_url": "https://archive.org/download/BhaskariIIIKCPandey/BhaskariIIIKCPandey.pdf",
+                    "language": "en-IN"
+                },
+                {
+                    "id": "A010",
+                    "title_original": "Outlines Of Indian Philosophy",
+                    "author_original": "M. Hiriyanna",
+                    "pdf_url": "https://archive.org/download/in.ernet.dli.2015.125789/in.ernet.dli.2015.125789.pdf",
+                    "language": "en-IN"
+                },
+                {
+                    "id": "A011",
+                    "title_original": "Sanskrit studies",
+                    "author_original": "M. Hiriyanna",
+                    "pdf_url": "https://archive.org/download/in.gov.ignca.2002/in.gov.ignca.2002.pdf",
+                    "language": "en-IN"
+                },
+                {
+                    "id": "A012",
+                    "title_original": "Art experience",
+                    "author_original": "M. Hiriyanna",
+                    "pdf_url": "https://archive.org/download/in.gov.ignca.2003/in.gov.ignca.2003.pdf",
+                    "language": "en-IN"
+                },
+                {
+                    "id": "A013",
+                    "title_original": "Quest after perfection",
+                    "author_original": "M. Hiriyanna",
+                    "pdf_url": "https://archive.org/download/in.gov.ignca.7282/in.gov.ignca.7282.pdf",
+                    "language": "en-IN"
+                }
+            ]
+        }
+    ]
+}
