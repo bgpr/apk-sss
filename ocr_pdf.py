@@ -268,7 +268,7 @@ def _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code
                     logger.debug(f"Extracted metadata file: {json_output_path}")
             
             os.remove(temp_zip_path) # Clean up temporary zip
-            return os.path.abspath(output_md_path), os.path.abspath(metadata_dir), os.path.abspath(metadata_dir)
+            return os.path.abspath(output_md_path), os.path.abspath(metadata_dir)
         else:
             logger.error(f"Sarvam AI chunk job did not complete successfully. Final state: {status.job_state}")
             if hasattr(status, 'error'):
