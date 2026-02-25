@@ -259,7 +259,7 @@ def _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code
                 logger.info(f"Successfully extracted {output_format} from chunk to {output_md_path}")
 
                 # Extract JSON metadata files
-                metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
+                metadata_dir = os.path.join(os.path.dirname(output_md_path), os.path.splitext(os.path.basename(output_md_path))[0] + "_metadata")
                 os.makedirs(metadata_dir, exist_ok=True)
                 for json_file in json_files:
                     json_output_path = os.path.join(metadata_dir, os.path.basename(json_file))
@@ -268,12 +268,12 @@ def _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code
                     logger.debug(f"Extracted metadata file: {json_output_path}")
             
             os.remove(temp_zip_path) # Clean up temporary zip
-            return os.path.abspath(output_md_path)
+            return os.path.abspath(output_md_path), os.path.abspath(metadata_dir), os.path.abspath(metadata_dir)
         else:
             logger.error(f"Sarvam AI chunk job did not complete successfully. Final state: {status.job_state}")
             if hasattr(status, 'error'):
                 logger.error(f"ERROR Details: {status.error}")
-            return None
+            return None, None
             
     except ApiError as e:
         logger.error(f"API ERROR during Sarvam AI OCR for chunk '{os.path.basename(pdf_path)}': Status {e.status_code}, Body: {e.body}")
@@ -317,16 +317,18 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
             return None
 
         all_chunk_md_paths = []
+        all_chunk_metadata_dirs = []
         overall_success = True
         for i, chunk_pdf_path in enumerate(chunk_pdf_paths):
             chunk_base_name = os.path.basename(chunk_pdf_path)
             chunk_md_output_path = os.path.join(os.path.dirname(output_md_path), f"{os.path.splitext(chunk_base_name)[0]}.md")
             
             logger.info(f"Processing chunk {i+1}/{len(chunk_pdf_paths)}: '{chunk_base_name}'")
-            chunk_md_path = _ocr_single_pdf_chunk(chunk_pdf_path, sarvam_ai_api_key, chunk_md_output_path, lang_code, output_format)
+            chunk_md_path, chunk_metadata_dir = _ocr_single_pdf_chunk(chunk_pdf_path, sarvam_ai_api_key, chunk_md_output_path, lang_code, output_format)
             
-            if chunk_md_path:
+            if chunk_md_path is not None and chunk_metadata_dir is not None:
                 all_chunk_md_paths.append(chunk_md_path)
+                all_chunk_metadata_dirs.append(chunk_metadata_dir)
             else:
                 logger.error(f"OCR failed for chunk '{chunk_base_name}'. Aborting processing for '{os.path.basename(pdf_path)}'.")
                 overall_success = False
@@ -339,7 +341,8 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
             os.rmdir(os.path.dirname(chunk_pdf_paths[0]))
 
         if not overall_success:
-            return None # Indicate failure for the main PDF
+            return None, None # Indicate failure for the main PDF
+
         
         # Merge all chunk Markdown files into the final output_md_path
         logger.info(f"Merging {len(all_chunk_md_paths)} Markdown chunks into '{output_md_path}'...")
@@ -352,35 +355,31 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
         logger.info(f"Successfully merged all chunks into {output_md_path}")
         
         # Calculate and log confidence metrics for the merged document
-        metadata_dirs = [os.path.join(os.path.dirname(md_path), "metadata") for md_path in all_chunk_md_paths]
-        # For simplicity, we'll just report on the first chunk's metadata for now, or aggregate if needed.
-        # A more robust solution might aggregate metrics from all chunks.
-        if metadata_dirs and os.path.exists(metadata_dirs[0]):
-            merged_metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
-            os.makedirs(merged_metadata_dir, exist_ok=True)
-            for mdir in metadata_dirs:
-                for json_f in os.listdir(mdir):
-                    if json_f.endswith('.json'):
-                        os.rename(os.path.join(mdir, json_f), os.path.join(merged_metadata_dir, json_f))
-                shutil.rmtree(mdir) # Remove chunk metadata directory
+        merged_metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
+        os.makedirs(merged_metadata_dir, exist_ok=True)
+        
+        for mdir in all_chunk_metadata_dirs:
+            for json_f in os.listdir(mdir):
+                if json_f.endswith('.json'):
+                    shutil.move(os.path.join(mdir, json_f), os.path.join(merged_metadata_dir, json_f))
+            shutil.rmtree(mdir) # Remove chunk metadata directory
 
-            confidence_metrics = calculate_ocr_confidence_metrics(merged_metadata_dir)
-            logger.info(f"Confidence Metrics for merged document '{os.path.basename(pdf_path)}':")
-            logger.info(f"  Average Block Confidence: {confidence_metrics['avg_page_confidence']:.2f}")
-            logger.info(f"  Low Confidence Blocks (<0.7): {confidence_metrics['low_confidence_blocks_count']}")
-            if confidence_metrics['pages_with_low_confidence_blocks']:
-                logger.info(f"  Pages with Low Confidence Blocks: {confidence_metrics['pages_with_low_confidence_blocks']}")
+        confidence_metrics = calculate_ocr_confidence_metrics(merged_metadata_dir)
+        logger.info(f"Confidence Metrics for merged document '{os.path.basename(pdf_path)}':")
+        logger.info(f"  Average Block Confidence: {confidence_metrics['avg_page_confidence']:.2f}")
+        logger.info(f"  Low Confidence Blocks (<0.7): {confidence_metrics['low_confidence_blocks_count']}")
+        if confidence_metrics['pages_with_low_confidence_blocks']:
+            logger.info(f"  Pages with Low Confidence Blocks: {confidence_metrics['pages_with_low_confidence_blocks']}")
         
         return os.path.abspath(output_md_path)
 
     logger.info(f"PDF pre-check passed for '{os.path.basename(pdf_path)}'. Page count: {page_count}. Performing OCR directly.")
     # Fall through to original single PDF OCR logic if not chunked
-    md_file_path = _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code, output_format)
+    md_file_path, metadata_dir = _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code, output_format)
     
     if md_file_path:
         # Calculate and log confidence metrics for the single document
-        metadata_dir = os.path.join(os.path.dirname(output_md_path), "metadata")
-        if os.path.exists(metadata_dir):
+        if metadata_dir and os.path.exists(metadata_dir):
             confidence_metrics = calculate_ocr_confidence_metrics(metadata_dir)
             logger.info(f"Confidence Metrics for document '{os.path.basename(pdf_path)}':")
             logger.info(f"  Average Block Confidence: {confidence_metrics['avg_page_confidence']:.2f}")
