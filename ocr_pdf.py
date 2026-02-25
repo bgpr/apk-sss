@@ -275,14 +275,11 @@ def _ocr_single_pdf_chunk(pdf_path, sarvam_ai_api_key, output_md_path, lang_code
                 logger.error(f"ERROR Details: {status.error}")
             return None, None
             
-    except ApiError as e:
-        logger.error(f"API ERROR during Sarvam AI OCR for chunk '{os.path.basename(pdf_path)}': Status {e.status_code}, Body: {e.body}")
-        logger.error(f"Traceback: {traceback.format_exc()}")
-        return None
+        return None, None
     except Exception as e:
         logger.error(f"AN UNEXPECTED ERROR OCCURRED during Sarvam AI OCR for chunk '{os.path.basename(pdf_path)}': {e}")
         logger.error(f"Traceback: {traceback.format_exc()}")
-        return None
+        return None, None
 
 def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-IN", output_format="md"):
     """

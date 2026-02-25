@@ -17,3 +17,6 @@ test_python_version.log
 !README.md
 
 full_run_unified.log
+main_processor_debug.log
+ocr_pdf_debug.log
+processed_docs/

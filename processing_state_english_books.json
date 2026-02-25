@@ -282,11 +282,12 @@
             "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.pdf",
             "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.md",
             "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/017/017_vedanta-or-the-science-of-reality_iyer-k-a-krishnaswamy.docx",
-            "status": "failed",
+            "status": "completed",
             "download_status": "completed",
             "pdf_sha256_hash": "8ec9daae6312a8b9b7edf278fad8eaf0790f1cb94a4484645e4cb00b419d661c",
-            "ocr_status": "failed",
-            "error_message": "OCR to Markdown failed after multiple retries."
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "018",
@@ -519,11 +520,12 @@
             "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-meth..._gangolly-d-b.pdf",
             "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-meth..._gangolly-d-b.md",
             "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/032/032_the-magic-jewel-of-intuition-the-tri-basic-meth..._gangolly-d-b.docx",
-            "status": "failed",
+            "status": "completed",
             "download_status": "completed",
             "pdf_sha256_hash": "be3dde140af83eeb475b72a5cb5e6babee14b34c839714c3736db93b9b02a0e1",
-            "ocr_status": "failed",
-            "error_message": "PDF file missing or corrupted before OCR."
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "033",
@@ -552,11 +554,12 @@
             "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.pdf",
             "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.md",
             "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/034/034_the-essential-gauḍāpada_gangolly-d-b.docx",
-            "status": "failed",
+            "status": "completed",
             "download_status": "completed",
             "pdf_sha256_hash": "0234090ef7c300447bb10388b3bb9052f8fa04427e481c0c5202bcd8cab5cf7d",
-            "ocr_status": "failed",
-            "error_message": "OCR to Markdown failed after multiple retries."
+            "ocr_status": "completed",
+            "docx_conversion_status": "completed",
+            "copy_to_sdcard_status": "completed"
         },
         {
             "id": "036",
@@ -742,6 +745,7 @@
             "download_status": "completed",
             "pdf_sha256_hash": "b4b5b76334329265b3bad6dacb3b8fea39289e34ce2d0cf276854f949a29ca66",
             "ocr_status": "failed",
+            "docx_conversion_status": "pending",
             "error_message": "OCR to Markdown failed after multiple retries."
         },
         {
@@ -785,9 +789,9 @@
             "title_english_slug": "collected-books-and-articles-on-vedantaguide-lines-to-shankara-vedanta-adhyatma-yoga-avasthaatraya-viveka-teaching-of-brahman-through-the-attributions-of-avidya-and-maya-prospectus-for-teaching-genuine-vedanta-articles-of-devarao-kulkarni-on-vedanta",
             "author_english_slug": "sri-devarao-kulkarni",
             "pdf_url": "https://adhyatmaprakasha.org/Volumes/PDF/english/056/index.pdf",
-            "local_pdf_path": "/data/data/com.termux/files/home/apk/raw_pdf/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.pdf",
-            "local_md_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.md",
-            "local_docx_path": "/data/data/com.termux/files/home/apk/processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.docx",
+            "local_pdf_path": "raw_pdf/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.pdf",
+            "local_md_path": "processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.md",
+            "local_docx_path": "processed_docs/english_books/056/056_collected-books-and-articles-on-vedantaguide-li..._sri-devarao-kulkarni.docx",
             "status": "completed",
             "download_status": "completed",
             "pdf_sha256_hash": "40c61e7db98fea2b0c21c805e8e003412b7f9de7b32d919af2acd0db7f3c1fb4",
