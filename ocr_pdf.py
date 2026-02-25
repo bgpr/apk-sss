@@ -330,17 +330,30 @@ def ocr_to_markdown(pdf_path, sarvam_ai_api_key, output_md_path, lang_code="kn-I
                 all_chunk_md_paths.append(chunk_md_path)
                 all_chunk_metadata_dirs.append(chunk_metadata_dir)
             else:
-                logger.error(f"OCR failed for chunk '{chunk_base_name}'. Aborting processing for '{os.path.basename(pdf_path)}'.")
-                overall_success = False
-                break
+                logger.error(f"OCR failed for chunk '{chunk_base_name}'. This book's OCR will be marked as failed.")
+                overall_success = False # Mark overall as failed but continue to process other chunks if possible
         
         # Clean up chunk PDF files regardless of success
         for p in chunk_pdf_paths:
-            os.remove(p)
-        if os.path.exists(os.path.dirname(chunk_pdf_paths[0])): # Remove chunk directory
-            os.rmdir(os.path.dirname(chunk_pdf_paths[0]))
+            if os.path.exists(p):
+                os.remove(p)
+        
+        # Remove chunk directory only if all chunk PDF files are gone
+        if chunk_pdf_paths and os.path.exists(os.path.dirname(chunk_pdf_paths[0])):
+            try:
+                os.rmdir(os.path.dirname(chunk_pdf_paths[0]))
+            except OSError as e:
+                logger.warning(f"Could not remove chunk directory '{os.path.dirname(chunk_pdf_paths[0])}': {e}. It might contain other files.")
+
 
         if not overall_success:
+            # Clean up any successfully processed chunk MD/metadata for this book if overall failed
+            for cmdp in all_chunk_md_paths:
+                if os.path.exists(cmdp):
+                    os.remove(cmdp)
+            for c_mdir in all_chunk_metadata_dirs:
+                if os.path.exists(c_mdir):
+                    shutil.rmtree(c_mdir)
             return None, None # Indicate failure for the main PDF
 
         
